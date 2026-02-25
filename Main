@@ -1,0 +1,37 @@
+#define salida1 3
+#define salida2 4
+#define entrada1 5
+#define entrada2 6
+bool avanza = false;
+bool retrocede = false;
+void setup() {
+  pinMode(salida1, OUTPUT);
+  pinMode(salida2, OUTPUT);
+  pinMode(entrada1, INPUT_PULLUP);
+  pinMode(entrada2, INPUT_PULLUP);
+}
+
+void loop() {
+
+  if (digitalRead(entrada1) == LOW && avanza == false) {   // LOW = botón presionado
+    avanza = true;
+    digitalWrite(salida1, HIGH);
+    delay(50);
+    digitalWrite(salida2, HIGH);
+    delay(50);
+    digitalWrite(salida2, LOW);
+    delay(50);
+  }
+  /*if (digitalRead(entrada1) == HIGH && avanza == false){
+    avanza = false;
+  }*/
+  if (digitalRead(entrada2) == LOW)  {   // LOW = botón presionado
+   avanza = false;
+    digitalWrite(salida1, LOW);
+    delay(50);
+    digitalWrite(salida2, HIGH);
+    delay(50);
+    digitalWrite(salida2, LOW);
+    delay(50);
+  }
+}
