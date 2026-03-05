@@ -2,12 +2,13 @@
 #define salida2 4
 #define entrada1 5
 #define entrada2 6
-/*definimos los puertos del arduino*/
-void setup() {//setea las entradas y salidas
-  pinMode(salida1, OUTPUT);//salida para el flipflop
-  pinMode(salida2, OUTPUT);//clk
-  pinMode(entrada1, INPUT_PULLUP);//entrada de boton
-  pinMode(entrada2, INPUT_PULLUP);//entrada de boton
+bool avanza = false;
+bool retrocede = false;
+void setup() {
+  pinMode(salida1, OUTPUT);
+  pinMode(salida2, OUTPUT);
+  pinMode(entrada1, INPUT_PULLUP);
+  pinMode(entrada2, INPUT_PULLUP);
 }
 void espera(){
   /*esta funcion nos permite hacer un proceso de espera para evitar "un doble toque en falso"*/
@@ -16,27 +17,30 @@ void espera(){
   }
   return;
 }
-void loop() {
-  /*actualmente solo permite prender y apagar una salida*/
-  if (digitalRead(entrada1) == LOW && avanza == false) {   // LOW = botón presionado
 
-    digitalWrite(salida1, HIGH); //prende una salida
+void loop() {
+
+  if (digitalRead(entrada1) == LOW ) {   // LOW = botón presionado
+    //avanza = true;
+    digitalWrite(salida1, HIGH);
     delay(50);
-    digitalWrite(salida2, HIGH);//activa el clk
+    digitalWrite(salida2, HIGH);
     delay(50);
-    digitalWrite(salida2, LOW);//desactiva el clk
+    digitalWrite(salida2, LOW);
     delay(50);
-    espera();//nos manda a la funcion de espera
+    espera();
+    delay(50);
   }
   
   if (digitalRead(entrada2) == LOW)  {   // LOW = botón presionado
-  
-    digitalWrite(salida1, LOW);//apaga una salida
+   avanza = false;
+    digitalWrite(salida1, LOW);
     delay(50);
-    digitalWrite(salida2, HIGH);//activa el clk
+    digitalWrite(salida2, HIGH);
     delay(50);
-    digitalWrite(salida2, LOW);//desactiva el clk
+    digitalWrite(salida2, LOW);
     delay(50);
-    espera();//nos manda a la funcion de espera
+    espera();
+    delay(50);
   }
 }
